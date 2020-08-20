@@ -1,0 +1,31 @@
+{
+  "name": "validator.js",
+  "version": "0.0.1",
+  "description": "String validation",
+  "homepage": "https://github.com/ueumd/validator.js",
+  "main": "dist/validator.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ueumd/validator.js"
+  },
+  "keywords": [
+    "validator",
+    "validator.tool",
+    "validator.js",
+    "validation",
+    "validate"
+  ],
+  "author": "ueumd",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "rollup": "^2.26.4",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
+}

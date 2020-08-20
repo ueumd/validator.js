@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Validator</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
+  <style>
+    #app {
+      width: 30%;
+      margin: 15px;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .form-group {
+      margin: 10px 0;
+    }
+
+    label {
+      display: inline-block
+    }
+
+    .left {
+      width: 90px;
+      text-align: right;
+      margin-right: 5px
+    }
+
+    input {
+      border: 1px solid #ccc;
+      padding: 5px
+    }
+
+    button {
+      margin-left: 100px;
+      padding: 8px 20px;
+      background: #0099fe;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px
+    }
+
+    .err {
+      margin-left: 100px;
+      color: red;
+      font-size: 12px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="form-group">
+    <label class="left">手机:</label>
+    <label>
+      <input type="text" v-model="phone" class="form-control"/>
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="left">用户名:</label>
+    <label>
+      <input type="text" v-model="username" class="form-control">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label class="left">密码:</label>
+    <label>
+      <input type="password" v-model="password" class="form-control">
+    </label>
+  </div>
+  <div class="err">
+    {{errorMsg}}
+  </div>
+  <button @click="submit">Submit</button>
+  <button @click="submit2">Submit2</button>
+</div>
+<script type="module">
+  import Validator from '../dist/validator.esm.js'
+
+  const validate = new Validator()
+
+  validate.rules['@'] = (value, message) => {
+    return ~value.indexOf('@') === 0 ? message : void 0
+  }
+
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        phone: '13212341234',
+        username: '',
+        password: '',
+        errorMsg: ''
+      }
+    },
+    methods: {
+      submit() {
+        validate.init()
+            .add(this.phone, [{name: 'phone', message: '手机号码格式不正确'}])
+            .add(this.username, [
+              {name: 'required', message: '用户名不能为空！'},
+              {name: 'min:6', message: '用户名长度不能小于6位！'},
+              {
+                name: 'callback',
+                message: '用户名必须是英文字母！',
+                callback: (value, message) => {
+                  return !/^[A-Za-z]+$/.test(value) ? message : void 0
+                }
+              }
+            ])
+            .add(this.password, [
+              {name: 'required', message: '密码不能为空!'},
+              {name: 'max:8', message: '密码长度不能超过8位'},
+              {name: '@', message: '必须包含@符号！'}
+            ])
+
+        this.errorMsg = validate.check()
+        if (this.errorMsg) {
+          console.error(this.errorMsg)
+        } else {
+          console.log('ok')
+        }
+      },
+      submit2() {
+        validate.start(
+            [
+              {
+                value: this.phone,
+                rules: [{name: 'phone', message: '手机号码格式不正确'}]
+              },
+              {
+                value: this.username,
+                rules: [
+                  {name: 'required', message: '用户名不能为空！'},
+                  {name: 'min:6', message: '用户名长度不能小于6位！'},
+                  {
+                    name: 'callback',
+                    message: '用户名必须是英文字母！',
+                    callback: (value, message) => {
+                      return !/^[A-Za-z]+$/.test(value) ? message : void 0
+                    }
+                  }
+                ]
+              },
+              {
+                value: this.password,
+                rules: [
+                  {name: 'required', message: '密码不能为空!'},
+                  {name: 'max:8', message: '密码长度不能超过8位'},
+                  {name: '@', message: '必须包含@符号！'}
+                ]
+              }
+            ],
+            (err) => {
+              if (err) {
+                this.errorMsg = err
+                console.error(err)
+              } else {
+                this.errorMsg = ''
+                console.log('ok')
+              }
+            }
+        )
+      }
+    }
+  })
+</script>
+</body>
+</html>
