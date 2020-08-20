@@ -111,6 +111,12 @@ validate.rules['@'] = (value, message) => {
 
 // 使用1
 validate.init().add(this.password, [{name:'@', message:'必须包含@符号!'}])
+const errorMsg = validate.check()
+if (errorMsg) {
+  console.error(this.errorMsg)
+} else {
+  console.log('ok')
+}
 
 // 使用2
 validate.start(
