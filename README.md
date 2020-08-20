@@ -166,7 +166,7 @@ validate.start(
 - message: '提示信息'
 - callback: (value, message) => {...}
 ```js
- validate.add(this.password, [
+ validate.init().add(this.password, [
   {
     name: 'callback',
     message: '密码不能为空!',
