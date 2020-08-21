@@ -66,29 +66,29 @@ class Validator {
    * 执行添加的验证项
    * @returns {*}
    */
-  check(fn) {
+  validation(callback) {
     for (const validatorFunc of this.hooks) {
       const errorMsg = validatorFunc();
       if (errorMsg) {
-        if(fn) {
-          return fn(errorMsg)
+        if(callback) {
+          return callback(errorMsg)
         }
         return errorMsg
       }
     }
-    if (fn) {
-      return fn()
+    if (callback) {
+      return callback()
     }
   }
 
-  start(items, fn) {
+  start(rules, callback) {
     if(this.hooks.length) {
       this.hooks = [];
     }
-    items.forEach(item => {
+    rules.forEach(item => {
       this.add(item.value, item.rules);
     });
-    this.check(fn);
+    this.validation(callback);
     return this
   }
 }

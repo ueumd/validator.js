@@ -79,9 +79,9 @@
 <script type="module">
   import Validator from '../dist/validator.esm.js'
 
-  const validate = new Validator()
+  const validator = new Validator()
 
-  validate.rules['@'] = (value, message) => {
+  validator.rules['@'] = (value, message) => {
     return ~value.indexOf('@') === 0 ? message : void 0
   }
 
@@ -97,7 +97,7 @@
     },
     methods: {
       submit() {
-        validate.init()
+        validator.init()
             .add(this.phone, [{name: 'phone', message: '手机号码格式不正确'}])
             .add(this.username, [
               {name: 'required', message: '用户名不能为空！'},
@@ -116,7 +116,7 @@
               {name: '@', message: '必须包含@符号！'}
             ])
 
-        this.errorMsg = validate.check()
+        this.errorMsg = validator.validation()
         if (this.errorMsg) {
           console.error(this.errorMsg)
         } else {
@@ -124,7 +124,7 @@
         }
       },
       submit2() {
-        validate.start(
+        validator.start(
             [
               {
                 value: this.phone,
