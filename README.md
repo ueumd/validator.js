@@ -53,19 +53,19 @@ new Vue({
                 .start()
                 .add(this.phone, [
                     {
-                        type: 'requried',
+                        type: 'required',
                         message:'手机号码不能为空'
-                    }，
+                    },
                     {
                         type: 'phone',
-                        message:'手机号码格式不正确'
+                        message: '手机号码格式不正确'
                     }
                 ])
                 .add(this.username, [
                     {
-                        type: 'requried',
+                        type: 'required',
                         message:'用户名不能为空'
-                    }，
+                    },
                     {
                         type: 'min:6',
                         message:'用户名长度不能小于6位!'
