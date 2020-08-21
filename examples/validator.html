@@ -70,6 +70,14 @@
       <input type="password" v-model="password" class="form-control">
     </label>
   </div>
+
+  <div class="form-group">
+    <label class="left">确认密码:</label>
+    <label>
+      <input type="password" v-model="confirmPassword" class="form-control">
+    </label>
+  </div>
+
   <div class="err">
     {{errorMsg}}
   </div>
@@ -92,6 +100,7 @@
         phone: '13212341234',
         username: '',
         password: '',
+        confirmPassword: '',
         errorMsg: ''
       }
     },
@@ -114,6 +123,15 @@
               {type: 'required', message: '密码不能为空!'},
               {type: 'max:8', message: '密码长度不能超过8位'},
               {type: '@', message: '必须包含@符号！'}
+            ])
+            .add(this.confirmPassword, [
+              {
+                type: 'callback',
+                message: '两次输入密码不一致辞！',
+                callback: (value, message) => {
+                  return value !== this.password ? message : void 0
+                }
+              }
             ])
 
         this.errorMsg = validator.validation()
