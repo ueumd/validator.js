@@ -53,21 +53,21 @@ new Vue({
                 .start()
                 .add(this.phone, [
                     {
-                        name: 'requried',
+                        type: 'requried',
                         message:'手机号码不能为空'
                     }，
                     {
-                        name: 'phone',
+                        type: 'phone',
                         message:'手机号码格式不正确'
                     }
                 ])
                 .add(this.username, [
                     {
-                        name: 'requried',
+                        type: 'requried',
                         message:'用户名不能为空'
                     }，
                     {
-                        name: 'min:6',
+                        type: 'min:6',
                         message:'用户名长度不能小于6位!'
                     }
                 ])
@@ -102,8 +102,8 @@ new Vue({
         
 ```js
 validate.add(this.username, [
-    {name: 'required', message: '用户名不能为空'},
-    {name: 'min:6', message: '用户名长度不能小于6位!'}
+    {type: 'required', message: '用户名不能为空'},
+    {type: 'min:6', message: '用户名长度不能小于6位!'}
 ])
 ```
 
@@ -115,14 +115,14 @@ validate.add(this.username, [
     [
         {
             value: this.phone,
-            rules: [{name: 'phone', message: '手机号码格式不正确'}]
+            rules: [{type: 'phone', message: '手机号码格式不正确'}]
         },
         {
             value: this.password,
             rules: [
-             {name: 'required', message: '密码不能为空!'},
-             {name: 'max:8', message: '密码长度不能超过8位'},
-             {name: '@', message: '必须包含@符号！'}
+             {type: 'required', message: '密码不能为空!'},
+             {type: 'max:8', message: '密码长度不能超过8位'},
+             {type: '@', message: '必须包含@符号！'}
             ]
         }
     ]
@@ -146,7 +146,7 @@ validate.rules['@'] = (value, message) => {
 }
 
 // 使用1
-validate.init().add(this.password, [{name:'@', message:'必须包含@符号!'}])
+validate.init().add(this.password, [{type:'@', message:'必须包含@符号!'}])
 const errorMsg = validate.validation()
 if (errorMsg) {
   console.error(this.errorMsg)
@@ -159,15 +159,15 @@ validate.start(
     [
       {
         value: this.phone,
-        rules: [{name: 'phone', message: '手机号码格式不正确'}]
+        rules: [{type: 'phone', message: '手机号码格式不正确'}]
       },
       {
         value: this.username,
         rules: [
-          {name: 'required', message: '用户名不能为空！'},
-          {name: 'min:6', message: '用户名长度不能小于6位！'},
+          {type: 'required', message: '用户名不能为空！'},
+          {type: 'min:6', message: '用户名长度不能小于6位！'},
           {
-            name: 'callback',
+            type: 'callback',
             message: '用户名必须是英文字母！',
             callback: (value, message) => {
               return !/^[A-Za-z]+$/.test(value) ? message : void 0
@@ -178,9 +178,9 @@ validate.start(
       {
         value: this.password,
         rules: [
-          {name: 'required', message: '密码不能为空!'},
-          {name: 'max:8', message: '密码长度不能超过8位'},
-          {name: '@', message: '必须包含@符号！'}
+          {type: 'required', message: '密码不能为空!'},
+          {type: 'max:8', message: '密码长度不能超过8位'},
+          {type: '@', message: '必须包含@符号！'}
         ]
       }
     ],
@@ -198,20 +198,20 @@ validate.start(
 
 ### 自定义
 自定义验证:
-- name: 'callback'
+- type: 'callback'
 - message: '提示信息'
 - callback: (value, message) => {...}
 ```js
  validate.init().add(this.password, [
   {
-    name: 'callback',
+    type: 'callback',
     message: '密码不能为空!',
     callback :(value, message) =>  {
       return value === '' ? message : void 0
     }
   },
   {
-    name: 'callback',
+    type: 'callback',
     message: '必须包含@符号！',
     callback :(value, message) =>  {
       return ~value.indexOf('@') === 0 ? message : void 0

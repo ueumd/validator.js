@@ -43,17 +43,17 @@ export default class Validator {
    */
   add(value, rules) {
     for (const rule of rules) {
-      const strategyAry = rule.name.split(':')
+      const args = rule.type.split(':')
 
       this.hooks.push(() => {
-        const ruleKey = strategyAry.shift()
-        strategyAry.unshift(value)
-        strategyAry.push(rule.message)
+        const type = args.shift()
+        args.unshift(value)
+        args.push(rule.message)
 
-        if (this.rules[ruleKey]) {
-          return this.rules[ruleKey].apply(null, strategyAry)
+        if (this.rules[type]) {
+          return this.rules[type].apply(null, args)
         } else if(rule.callback) {
-          return rule.callback.apply(null, strategyAry)
+          return rule.callback.apply(null, args)
         }
       })
     }
