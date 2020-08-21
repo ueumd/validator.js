@@ -127,7 +127,7 @@
             .add(this.confirmPassword, [
               {
                 type: 'callback',
-                message: '两次输入密码不一致辞！',
+                message: '两次输入密码不一致！',
                 callback: (value, message) => {
                   return value !== this.password ? message : void 0
                 }

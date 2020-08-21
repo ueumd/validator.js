@@ -220,6 +220,8 @@ validate.start(
 ])
 ```
 
+![image](validator.jpg)
+
 ## 参考
 - [chriso/validator.js](https://github.com/chriso/validator.js)
 - [rickharrison/validate.js](https://github.com/rickharrison/validate.js)
