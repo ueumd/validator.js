@@ -71,7 +71,7 @@ new Vue({
                     }
                 ])
             
-            const errorMsg = validate.check()
+            const errorMsg = validate.validation()
             if (errorMsg) {
               console.error(errorMsg)
             } else {}
@@ -145,7 +145,7 @@ validate.rules['@'] = (value, message) => {
 
 // 使用1
 validate.init().add(this.password, [{name:'@', message:'必须包含@符号!'}])
-const errorMsg = validate.check()
+const errorMsg = validate.validation()
 if (errorMsg) {
   console.error(this.errorMsg)
 } else {
