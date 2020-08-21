@@ -15,7 +15,8 @@ const validator = new Validator()
 
 在JS中使用方法。
 > 详细见Demo
-```html 
+
+```html
 <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.js"></script>
 
 <body id="app">
@@ -107,23 +108,24 @@ validate.add(this.username, [
 ```
 
 ### new Validator().start(rules, callback)
-> 回享函数方式
+> 回调函数方式
+
 - rules 数组，需要验证的字段项
 ```js
-[
-    {
-        value: this.phone,
-        rules: [{name: 'phone', message: '手机号码格式不正确'}]
-    },
-    {
-        value: this.password,
-        rules: [
-         {name: 'required', message: '密码不能为空!'},
-         {name: 'max:8', message: '密码长度不能超过8位'},
-         {name: '@', message: '必须包含@符号！'}
-        ]
-    }
-]
+    [
+        {
+            value: this.phone,
+            rules: [{name: 'phone', message: '手机号码格式不正确'}]
+        },
+        {
+            value: this.password,
+            rules: [
+             {name: 'required', message: '密码不能为空!'},
+             {name: 'max:8', message: '密码长度不能超过8位'},
+             {name: '@', message: '必须包含@符号！'}
+            ]
+        }
+    ]
 ```
 
 - callback 成功与失败回调函数
